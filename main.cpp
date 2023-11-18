@@ -1,83 +1,57 @@
 #include <iostream>
 #include <iomanip>
 
-const int ROWS = 3;
-const int COLS = 3;
+const int NUM_SLABS = 3;
+const int SLAB_RANGES[NUM_SLABS] = {100, 200, 300};
+const int SLAB_COSTS[NUM_SLABS] = {10, 15, 20};
 
-// Source data matrix
-int electricityMatrix[ROWS][COLS] = {
-    {10, 15, 20},  // Slab 1
-    {10, 15, 20},  // Slab 2
-    {10, 15, 20}   // Slab 3
+int electricityData[NUM_SLABS][3] = {
+    {55, 65, 75},
+    {120, 150, 170},
+    {210, 230, 240}
 };
 
-// Function to calculate and display cost for slab 1
-void costSlab1() {
-    int units;
-    std::cout << "Enter the number of units for Slab 1: ";
-    std::cin >> units;
+void displayStudentID() {
+    std::cout << "Student ID: [Your Student ID]" << std::endl;
+}
 
-    if (units >= 0 && units <= 100) {
-        std::cout << "Cost for Slab 1: Rs." << units * electricityMatrix[0][0] << std::endl;
-    } else {
-        std::cout << "Invalid number of units for Slab 1." << std::endl;
+void costSlab(int slabIndex) {
+    int units = 0;
+    for (int i = 0; i < NUM_SLABS; ++i) {
+        units = electricityData[slabIndex][i];
+        int cost = units * SLAB_COSTS[slabIndex];
+        std::cout << "Cost for Slab " << slabIndex + 1 << ", Unit " << i + 1 << ": Rs." << cost << std::endl;
     }
 }
 
-// Function to calculate and display cost for slab 2
-void costSlab2() {
-    int units;
-    std::cout << "Enter the number of units for Slab 2: ";
-    std::cin >> units;
-
-    if (units >= 101 && units <= 200) {
-        std::cout << "Cost for Slab 2: Rs." << (units - 100) * electricityMatrix[1][1] << std::endl;
-    } else {
-        std::cout << "Invalid number of units for Slab 2." << std::endl;
-    }
-}
-
-// Function to calculate and display cost for slab 3
-void costSlab3() {
-    int units;
-    std::cout << "Enter the number of units for Slab 3: ";
-    std::cin >> units;
-
-    if (units >= 201 && units <= 300) {
-        std::cout << "Cost for Slab 3: Rs." << (units - 200) * electricityMatrix[2][2] << std::endl;
-    } else {
-        std::cout << "Invalid number of units for Slab 3." << std::endl;
-    }
+void displayMenu() {
+    std::cout << "\nMenu:" << std::endl;
+    std::cout << "1. Display the bill of Slab 1 and Slab 2." << std::endl;
+    std::cout << "2. Display the bill of Slab 3." << std::endl;
+    std::cout << "Press any other key to exit." << std::endl;
 }
 
 int main() {
-    // Display student ID at the top of the menu
-    std::cout << "Student ID: [Farwa 21046]" << std::endl;
+    displayStudentID();
 
-    while (true) {
-        // Display menu
-        std::cout << "\nMenu:" << std::endl;
-        std::cout << "Press 1 to Display the bill of slab 1 and slab 2." << std::endl;
-        std::cout << "Press 2 to Display the bill of slab 3." << std::endl;
-        std::cout << "Press any other key to exit." << std::endl;
-
-        // Get user choice
-        char choice;
+    char choice;
+    do {
+        displayMenu();
         std::cin >> choice;
 
         switch (choice) {
             case '1':
-                costSlab1();
-                costSlab2();
+                costSlab(0);
+                costSlab(1);
                 break;
             case '2':
-                costSlab3();
+                costSlab(2);
                 break;
             default:
                 std::cout << "Exiting the program." << std::endl;
                 return 0;
         }
-    }
+    } while (true);
 
     return 0;
 }
