@@ -12,7 +12,7 @@ int electricityData[NUM_SLABS][3] = {
 };
 
 void displayStudentID() {
-    std::cout << "Student ID: [Your Student ID]" << std::endl;
+    std::cout << "Student ID: [Farwa 21046]" << std::endl;
 }
 
 void costSlab(int slabIndex) {
